@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISTE Coaching Standards Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .standard-card:hover { transform: translateY(-2px); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-80 bg-slate-900 text-white flex flex-col h-full border-r border-slate-800 shrink-0">
+        <div class="p-6 border-b border-slate-800">
+            <h1 class="text-xl font-bold tracking-tight text-indigo-400"><i class="fa-solid fa-graduation-cap mr-2"></i>ISTE Coach</h1>
+            <p class="text-xs text-slate-400 mt-1">Professional Digital Portfolio</p>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto p-4 space-y-1" id="sidebar-nav">
+            <button onclick="switchTab('home')" id="nav-home" class="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-slate-800 text-white font-medium transition-all">
+                <span class="flex items-center"><i class="fa-solid fa-house mr-3 text-indigo-400"></i>Homepage</span>
+            </button>
+            <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Coaching Standards</div>
+            <!-- Dynamic Standard Links injected here -->
+        </nav>
+        
+        <div class="p-4 border-t border-slate-800 text-center text-xs text-slate-500">
+            Aligned with ISTE Standards for Coaches
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-50">
+        <!-- TOP HEADER -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8 shrink-0">
+            <h2 id="page-title" class="text-xl font-bold text-slate-800">Welcome Back</h2>
+            <div class="flex items-center space-x-4">
+                <button onclick="exportData()" class="flex items-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3 py-2 rounded-md shadow-sm transition-all">
+                    <i class="fa-solid fa-download mr-1.5"></i> Export Portfolio Backup
+                </button>
+            </div>
+        </header>
+
+        <!-- DYNAMIC CONTENT VIEWPORTS -->
+        <div class="flex-1 overflow-y-auto p-8" id="content-area">
+            
+            <!-- HOMEPAGE VIEW -->
+            <div id="view-home" class="max-w-5xl mx-auto space-y-8">
+                <div class="bg-gradient-to-r from-indigo-600 to-violet-700 text-white rounded-2xl p-8 shadow-md relative overflow-hidden">
+                    <div class="relative z-10 max-w-2xl">
+                        <h2 class="text-3xl font-extrabold mb-2">Instructional Technology Coaching Portfolio</h2>
+                        <p class="text-indigo-100 text-sm leading-relaxed mb-6"> Welcome to your professional artifact repository. This platform is organized explicitly around the 7 ISTE Standards for Coaches to prove, synthesize, and demonstrate high-impact digital learning support. </p>
+                        <div class="flex space-x-3">
+                            <span class="bg-white/20 text-white text-xs px-3 py-1.5 rounded-full font-medium backdrop-blur-sm"><i class="fa-solid fa-circle-check mr-1.5"></i>Auto-saving enabled</span>
+                        </div>
+                    </div>
+                    <div class="absolute right-0 bottom-0 top-0 w-1/3 opacity-10 flex items-center justify-center pointer-events-none">
+                        <i class="fa-solid fa-cubes text-[12rem]"></i>
+                    </div>
+                </div>
+
+                <!-- OVERVIEW STATS -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="p-3.5 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid fa-list-check text-xl"></i></div>
+                        <div>
+                            <div class="text-2xl font-bold" id="stat-total-indicators">27</div>
+                            <div class="text-xs text-slate-500 font-medium">Total Tracked Indicators</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="p-3.5 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-pen-nib text-xl"></i></div>
+                        <div>
+                            <div class="text-2xl font-bold" id="stat-completed">0</div>
+                            <div class="text-xs text-slate-500 font-medium">Completed Artifacts</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="p-3.5 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-floppy-disk text-xl"></i></div>
+                        <div>
+                            <div class="text-2xl font-bold text-emerald-600">Active</div>
+                            <div class="text-xs text-slate-500 font-medium">Local Browser Storage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STANDARDS NAVIGATION GRID -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">Navigate Portfolio Sections</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="home-standards-grid">
+                        <!-- Dynamic Cards will be rendered via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STANDARD DETAILS VIEW TEMPLATE -->
+            <div id="view-standard" class="max-w-5xl mx-auto hidden space-y-6">
+                <button onclick="switchTab('home')" class="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-1.5"></i> Return to Homepage
+                </button>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1" id="current-std-meta">Standard 1</div>
+                            <h3 class="text-2xl font-bold text-slate-900" id="current-std-title">Change Agent</h3>
+                            <p class="text-slate-500 text-sm mt-2 max-w-3xl leading-relaxed" id="current-std-desc">Coaches inspire educators and leaders to use technology to create equitable and ongoing access to high-quality learning.</p>
+                        </div>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full" id="indicator-count-badge">0 Indicators</span>
+                    </div>
+                </div>
+
+                <!-- INDICATORS ACCOCCORDION LIST -->
+                <div class="space-y-4" id="indicators-container">
+                    <!-- Target for Dynamic Indicators -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // OFFICIAL ISTE STANDARDS FOR COACHES DATA STRUCTURE
+        const isteStandards = [
+            {
+                id: 1,
+                title: "Change Agent",
+                desc: "Coaches inspire educators and leaders to use technology to create equitable and ongoing access to high-quality learning.",
+                indicators: [
+                    { key: "1a", label: "Create a Shared Vision", text: "Coaches create a shared vision and culture for using technology to learn and accelerate transformation through the coaching process." },
+                    { key: "1b", label: "Use of Digital Tools & Content", text: "Coaches facilitate equitable use of digital learning tools and content that meet the needs of each learner." },
+                    { key: "1c", label: "Cultivate a Supportive Coaching Culture", text: "Coaches cultivate a supportive coaching culture that encourages educators and leaders to achieve a shared vision and meet individual goals." },
+                    { key: "1d", label: "Recognize High-Impact Teaching", text: "Coaches recognize educators across the organization who use technology effectively to enable high-impact teaching and learning." },
+                    { key: "1e", label: "Maximize Potential of Technology", text: "Coaches connect leaders, educators, instructional support, technical support, domain experts and solution providers to maximize the potential of technology for learning." }
+                ]
+            },
+            {
+                id: 2,
+                title: "Connected Learner",
+                desc: "Coaches model the ISTE Standards for Students and the ISTE Standards for Educators, and identify ways to improve their coaching practice.",
+                indicators: [
+                    { key: "2a", label: "Deepen Expertise Through Professional Learning", text: "Coaches pursue professional learning that deepens expertise in the ISTE Standards in order to serve as a model for educators and leaders." },
+                    { key: "2b", label: "Participate in PLNs", text: "Coaches actively participate in professional learning networks to enhance coaching practice and keep current with emerging technology and innovations in pedagogy and the learning sciences." },
+                    { key: "2c", label: "Commit to Continuous Improvement", text: "Coaches establish shared goals with educators, reflect on successes and continually improve coaching and teaching practice." }
+                ]
+            },
+            {
+                id: 3,
+                title: "Collaborator",
+                desc: "Coaches establish productive relationships with educators in order to improve instructional practice and learning outcomes.",
+                indicators: [
+                    { key: "3a", label: "Cultivate Coaching Relationships", text: "Coaches establish trusting and respectful coaching relationships that encourage educators to explore new instructional strategies." },
+                    { key: "3b", label: "Identify Relevant Learning Content With Educators", text: "Coaches partner with educators to identify digital learning content that is culturally relevant, developmentally appropriate and considers student interests and aspirations." },
+                    { key: "3c", label: "Partner with Educators", text: "Coaches partner with educators to evaluate the efficacy of digital learning tools and workarounds to enhance equitable access." },
+                    { key: "3d", label: "Personalize Communication", text: "Coaches personalize communication with educators, parents and the community to nurture relationships and share learning success." }
+                ]
+            },
+            {
+                id: 4,
+                title: "Learning Designer",
+                desc: "Coaches model and support educators to design learning experiences and environments to meet the needs of all students.",
+                indicators: [
+                    { key: "4a", label: "Collaborate to Design Learning Experiences", text: "Coaches collaborate with educators to design digital learning experiences that address content standards and provide equitable learning environments." },
+                    { key: "4b", label: "Promote Learner-Centered Instructional Strategies", text: "Coaches help educators use learner-centered instructional strategies and technology tools to address the diverse needs and interests of all students." },
+                    { key: "4c", label: "Foster Active & Creative Learning", text: "Coaches model design and implementation of technology-infused learning experiences that emphasize critical thinking, creativity, and active learning." },
+                    { key: "4d", label: "Differentiate Instruction", text: "Coaches guide educators to use differentiation models alongside technology to personalize learning pathways for unique individual profiles." }
+                ]
+            },
+            {
+                id: 5,
+                title: "Professional Learning Facilitator",
+                desc: "Coaches plan, provide and evaluate the impact of professional learning for educators and leaders to use technology to advance teaching and learning.",
+                indicators: [
+                    { key: "5a", label: "Design Quality Professional Learning", text: "Coaches design professional learning based on needs assessments and frameworks for working with adults to support their cultural, social-emotional and learning needs." },
+                    { key: "5b", label: "Build Capacity", text: "Coaches build the capacity of educators, leaders and instructional teams to put the ISTE Standards into practice by facilitating active learning and providing meaningful feedback." },
+                    { key: "5c", label: "Evaluate PD Impact", text: "Coaches evaluate the impact of professional learning and continually make improvements to meet the schoolwide vision for using technology." }
+                ]
+            },
+            {
+                id: 6,
+                title: "Data-Driven Decision-Maker",
+                desc: "Coaches model and support the use of data to inform instruction, support students and track progress toward literacy goals.",
+                indicators: [
+                    { key: "6a", label: "Assist with Data Analysis", text: "Coaches assist educators and leaders in securely gathering, analyzing, and interpreting student learning and achievement data." },
+                    { key: "6b", label: "Inform Pedagogical Decisions", text: "Coaches facilitate regular reflection sessions with data to choose high-yield technology adjustments for learning gaps." },
+                    { key: "6c", label: "Assess Technology Literacy", text: "Coaches work with instructional workflows to evaluate and refine student metrics for mastering digital competency frameworks." }
+                ]
+            },
+            {
+                id: 7,
+                title: "Digital Citizen Advocate",
+                desc: "Coaches model digital citizenship and support educators and students in recognizing the responsibilities and opportunities inherent in living in a digital world.",
+                indicators: [
+                    { key: "7a", label: "Encourage Civic Engagement", text: "Coaches and educators create pathways for students to use technology to address community challenges and gain real-world experience." },
+                    { key: "7b", label: "Foster Inclusive, Balanced Use", text: "Coaches collaborate with educators, leaders and students to foster inclusive online spaces and healthy balance in their use of technology." },
+                    { key: "7c", label: "Evaluate Online Content", text: "Coaches support educators and students to critically examine the sources and accuracy of online content and evaluate underlying assumptions, biases, and perspectives." },
+                    { key: "7d", label: "Support Others in Protecting Personal Data", text: "Coaches empower educators, leaders and students to make informed decisions to protect their personal data and curate the digital profile they intend to reflect." }
+                ]
+            }
+        ];
+
+        // Storage model initialized from browser storage
+        let portfolioData = JSON.parse(localStorage.getItem('iste_portfolio_data')) || {};
+        let activeTab = 'home';
+        let activeStandardId = null;
+
+        // BUILD SIDEBAR LINKS AND HOMEPAGE CARDS ON LOAD
+        function initPortfolio() {
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const homeGrid = document.getElementById('home-standards-grid');
+            let totalIndicatorsCount = 0;
+
+            isteStandards.forEach(std => {
+                totalIndicatorsCount += std.indicators.length;
+
+                // 1. Append Sidebar elements
+                const sidebarBtn = document.createElement('button');
+                sidebarBtn.id = `nav-std-${std.id}`;
+                sidebarBtn.className = "w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-100 text-sm font-medium transition-all text-left";
+                sidebarBtn.onclick = () => switchTab('standard', std.id);
+                sidebarBtn.innerHTML = `
+                    <span class="truncate pr-2"><span class="text-xs font-bold text-indigo-400 mr-1.5">${std.id}</span>${std.title}</span>
+                    <span id="badge-std-${std.id}" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-bold shrink-0">0%</span>
+                `;
+                sidebarNav.appendChild(sidebarBtn);
+
+                // 2. Append Grid Cards on Homepage
+                const card = document.createElement('div');
+                card.className = "standard-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between";
+                card.onclick = () => switchTab('standard', std.id);
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold text-indigo-600 tracking-wider uppercase">Standard 0${std.id}</span>
+                            <span id="grid-badge-${std.id}" class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">Not Started</span>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-900 mb-1">${std.title}</h4>
+                        <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${std.desc}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-medium">
+                        <span>${std.indicators.length} Required Indicators</span>
+                        <span class="text-indigo-600 hover:underline">Edit Entries <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                `;
+                homeGrid.appendChild(card);
+            });
+
+            document.getElementById('stat-total-indicators').innerText = totalIndicatorsCount;
+            updateMetrics();
+            renderView();
+        }
+
+        // NAVIGATION AND TAB VIEW ROUTING
+        function switchTab(tab, standardId = null) {
+            activeTab = tab;
+            activeStandardId = standardId;
+            renderView();
+        }
+
+        function renderView() {
+            // Manage UI element highlights
+            document.querySelectorAll('#sidebar-nav button').forEach(b => b.classList.remove('bg-slate-800', 'text-white'));
+            document.getElementById('nav-home').classList.remove('bg-slate-800', 'text-white');
+
+            if (activeTab === 'home') {
+                document.getElementById('nav-home').classList.add('bg-slate-800', 'text-white');
+                document.getElementById('view-home').classList.remove('hidden');
+                document.getElementById('view-standard').classList.add('hidden');
+                document.getElementById('page-title').innerText = "Portfolio Dashboard";
+                updateMetrics();
+            } else if (activeTab === 'standard') {
+                document.getElementById(`nav-std-${activeStandardId}`).classList.add('bg-slate-800', 'text-white');
+                document.getElementById('view-home').classList.add('hidden');
+                document.getElementById('view-standard').classList.remove('hidden');
+                
+                const currentStdObj = isteStandards.find(s => s.id === activeStandardId);
+                document.getElementById('page-title').innerText = `Reviewing Standard ${currentStdObj.id}`;
+                document.getElementById('current-std-meta').innerText = `ISTE Coaching Standard ${currentStdObj.id}`;
+                document.getElementById('current-std-title').innerText = currentStdObj.title;
+                document.getElementById('current-std-desc').innerText = currentStdObj.desc;
+                document.getElementById('indicator-count-badge').innerText = `${currentStdObj.indicators.length} Indicators Listed`;
+                
+                renderIndicators(currentStdObj);
+            }
+        }
+
+        // RENDER INDICATOR CARDS WITH TEXTAREAS & INPUTS
+        function renderIndicators(standard) {
+            const container = document.getElementById('indicators-container');
+            container.innerHTML = '';
+
+            standard.indicators.forEach(ind => {
+                const uniqueKey = `std_${standard.id}_ind_${ind.key}`;
+                const savedData = portfolioData[uniqueKey] || { artifactName: '', artifactUrl: '', narrative: '' };
+
+                const indCard = document.createElement('div');
+                indCard.className = "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm";
+                indCard.innerHTML = `
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-2">
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-indigo-600 text-white font-mono font-bold text-sm px-2 py-0.5 rounded shadow-sm mt-0.5 shrink-0">${ind.key}</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-800">${ind.label}</h4>
+                                <p class="text-xs text-slate-500 mt-0.5 italic leading-relaxed">${ind.text}</p>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center space-x-2">
+                            <span id="badge-status-${uniqueKey}" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${getStatusBadgeClass(savedData)}">
+                                ${getStatusText(savedData)}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 space-y-4 bg-white">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Artifact / Assignment Name</label>
+                                <div class="relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                    </div>
+                                    <input type="text" id="art-name-${uniqueKey}" oninput="autoSave('${uniqueKey}')" value="${savedData.artifactName}"
+                                        placeholder="e.g., Technology Integration Unit Plan" 
+                                        class="block w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Link to Artifact Asset (Drive, Web URL, or File Name Reference)</label>
+                                <div class="relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+                                        <i class="fa-solid fa-link"></i>
+                                    </div>
+                                    <input type="text" id="art-url-${uniqueKey}" oninput="autoSave('${uniqueKey}')" value="${savedData.artifactUrl}"
+                                        placeholder="https://drive.google.com/..." 
+                                        class="block w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Reflection & Context Narrative</label>
+                            <textarea id="narrative-${uniqueKey}" oninput="autoSave('${uniqueKey}')" rows="4"
+                                placeholder="Write your professional narrative explaining how this specific artifact addresses the indicator, the measurable impact it had on educators or students, and your self-reflection..." 
+                                class="block w-full p-3 text-sm bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-y">${savedData.narrative}</textarea>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(indCard);
+            });
+        }
+
+        // PERSISTENCE AND DATA SYNC LOGIC
+        function autoSave(uniqueKey) {
+            const artifactName = document.getElementById(`art-name-${uniqueKey}`).value.trim();
+            const artifactUrl = document.getElementById(`art-url-${uniqueKey}`).value.trim();
+            const narrative = document.getElementById(`narrative-${uniqueKey}`).value.trim();
+
+            portfolioData[uniqueKey] = { artifactName, artifactUrl, narrative };
+            localStorage.setItem('iste_portfolio_data', JSON.stringify(portfolioData));
+
+            // Dynamic badge updates inside the active view
+            const badge = document.getElementById(`badge-status-${uniqueKey}`);
+            if(badge) {
+                badge.className = `text-[11px] font-bold px-2.5 py-0.5 rounded-full ${getStatusBadgeClass(portfolioData[uniqueKey])}`;
+                badge.innerText = getStatusText(portfolioData[uniqueKey]);
+            }
+        }
+
+        // UTILITY FUNCTIONS FOR PROGRESS CALCULATION
+        function getStatusText(data) {
+            if (!data.artifactName && !data.artifactUrl && !data.narrative) return "Empty";
+            if (data.artifactName && data.narrative) return "Complete";
+            return "In Progress";
+        }
+
+        function getStatusBadgeClass(data) {
+            const status = getStatusText(data);
+            if(status === "Complete") return "bg-emerald-50 text-emerald-700 border border-emerald-200";
+            if(status === "In Progress") return "bg-amber-50 text-amber-700 border border-amber-200";
+            return "bg-slate-100 text-slate-400 border border-slate-200";
+        }
+
+        function updateMetrics() {
+            let totalCompletedCount = 0;
+
+            isteStandards.forEach(std => {
+                let indicatorsCompletedForThisStandard = 0;
+
+                std.indicators.forEach(ind => {
+                    const data = portfolioData[`std_${std.id}_ind_${ind.key}`];
+                    if (data && getStatusText(data) === "Complete") {
+                        indicatorsCompletedForThisStandard++;
+                        totalCompletedCount++;
+                    }
+                });
+
+                // Calculate percentages per standard
+                const standardPercentage = Math.round((indicatorsCompletedForThisStandard / std.indicators.length) * 100);
+                
+                // Update sidebar completion values
+                const sideBarBadge = document.getElementById(`badge-std-${std.id}`);
+                if(sideBarBadge) {
+                    sideBarBadge.innerText = `${standardPercentage}%`;
+                    if(standardPercentage === 100) {
+                        sideBarBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold shrink-0";
+                    } else if(standardPercentage > 0) {
+                        sideBarBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800 text-amber-400 font-bold shrink-0";
+                    } else {
+                        sideBarBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-bold shrink-0";
+                    }
+                }
+
+                // Update Grid Item Cards on Home
+                const gridBadge = document.getElementById(`grid-badge-${std.id}`);
+                if(gridBadge) {
+                    if(standardPercentage === 100) {
+                        gridBadge.innerText = "Complete";
+                        gridBadge.className = "text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full";
+                    } else if(standardPercentage > 0) {
+                        gridBadge.innerText = `${standardPercentage}% Done`;
+                        gridBadge.className = "text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full";
+                    } else {
+                        gridBadge.innerText = "Not Started";
+                        gridBadge.className = "text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full";
+                    }
+                }
+            });
+
+            document.getElementById('stat-completed').innerText = totalCompletedCount;
+        }
+
+        // SYSTEM BACKUP UTILITY
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(portfolioData, null, 4));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "iste_coaching_portfolio_backup.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        // Self run bootstrap pipeline
+        window.onload = initPortfolio;
+    </script>
+</body>
+</html>
